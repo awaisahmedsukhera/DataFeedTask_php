@@ -1,0 +1,6 @@
+/vendor/
+/logs/
+# Adding files to ignore while pushing the code to github
+feed.xml
+feed_sample.xml
+sqlite.db
