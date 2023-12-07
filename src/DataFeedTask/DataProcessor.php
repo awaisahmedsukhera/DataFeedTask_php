@@ -16,34 +16,32 @@ class DataProcessor {
         $this->logger->pushHandler(new StreamHandler('/home/awais/myphpproject/logs/error.log', Logger::INFO));
     }
 
-    public function processData(Reader $reader, Writer $writer, $sourceFile, $destinationFile) {
+    public function processData(Reader $reader, Writer $writer) {
         try {
             // Reading data from the XML reader
-            $data = $reader->readData($sourceFile);
+            $data = $reader->readData();
 
             // Checking if data is successfully read
             if ($data !== null) {
 
                 // Writing the data to the SQLite writer
-                $writer->writeData($data, $destinationFile);
+                $writer->writeData($data);
 
                 // Logging information about the processing
-                $this->logProcessingInfo($reader, $writer, $sourceFile, $destinationFile);
+                $this->logProcessingInfo($reader, $writer);
 
             } else {
-                $this->handleDataReadingError($sourceFile);
+                $this->handleDataReadingError();
             }
         } catch (\Exception $e) {
             $this->handleProcessingError($e);
         }
     }
 
-    private function logProcessingInfo(Reader $reader, Writer $writer, $sourceFile, $destinationFile) {
+    private function logProcessingInfo(Reader $reader, Writer $writer) {
         $this->logger->info("Data processing details", [
             'reader' => get_class($reader),
             'writer' => get_class($writer),
-            'sourceFile' => $sourceFile,
-            'destinationFile' => $destinationFile,
         ]);
     }
 
@@ -51,7 +49,7 @@ class DataProcessor {
         $this->logger->error("Error processing data: {$e->getMessage()}", ['exception' => $e]);
     }
 
-    private function handleDataReadingError($sourceFile) {
-        $this->logger->error("Error reading data from file '{$sourceFile}'");
+    private function handleDataReadingError() {
+        $this->logger->error("Error reading data from reader file");
     }
 }

@@ -4,5 +4,5 @@ namespace DataFeedTask\Reader;
 
 interface Reader
 {
-    public function readData($filePath);
+    public function readData();
 }

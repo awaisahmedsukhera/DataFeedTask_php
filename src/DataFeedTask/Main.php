@@ -31,7 +31,7 @@ try {
     $dataProcessor = new DataProcessor();
 
     // Processing data using the DataProcessor
-    $dataProcessor->processData($reader, $writer, $sourceFile, $destinationFile);
+    $dataProcessor->processData($reader, $writer);
 
     $mainLogger->info("Script completed successfully");
 } catch (\Exception $e) {

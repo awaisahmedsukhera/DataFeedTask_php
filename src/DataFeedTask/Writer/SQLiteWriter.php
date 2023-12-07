@@ -10,11 +10,14 @@ class SQLiteWriter implements Writer
 {
     private $connection;
     private $logger;
+    private $dbPath;
 
     public function __construct($dbPath)
     {
+        $this->dbPath = $dbPath;
+
         // Establishing a connection to the SQLite database using PDO
-        $this->connection = new PDO("sqlite:$dbPath");
+        $this->connection = new PDO("sqlite:$this->dbPath");
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Creating a Monolog logger instance with a stream handler
